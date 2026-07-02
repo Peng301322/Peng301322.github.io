@@ -107,6 +107,24 @@ app.innerHTML = `
         )
         .join("")}
     </div>
+    <div class="coursework-block">
+      <div class="coursework-head">
+        <span class="card-kicker">Core Coursework</span>
+        <h3>核心课程及成绩</h3>
+      </div>
+      <div class="coursework-grid">
+        ${siteData.coreCourses
+          .map(
+            (course) => `
+              <article class="course-card">
+                <strong>${course.name}</strong>
+                <span>${course.score}</span>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
   </section>
 
   <section class="section" id="experience">
@@ -183,7 +201,7 @@ app.innerHTML = `
                 <p>${item.role}</p>
               </div>
               <div class="portfolio-block">
-                <h4>可展示亮点</h4>
+                <h4>项目亮点</h4>
                 <ul class="detail-list">
                   ${item.highlights.map((highlight) => `<li>${highlight}</li>`).join("")}
                 </ul>
@@ -192,7 +210,7 @@ app.innerHTML = `
                 item.gallery?.length
                   ? `
                     <div class="portfolio-block">
-                      <h4>原始材料中的核心图片</h4>
+                      <h4>图片摘要</h4>
                       <div class="project-gallery">
                         ${item.gallery
                           .map(
@@ -250,6 +268,9 @@ app.innerHTML = `
       </div>
     </div>
   </section>
+  <a class="floating-resume" href="./assets/resume-latest.pdf" target="_blank" rel="noreferrer">
+    下载简历
+  </a>
 `;
 
 const header = document.querySelector(".site-header");
@@ -319,3 +340,31 @@ window.addEventListener("load", () => {
 
   syncActiveNav();
 });
+
+const loadAnalytics = () => {
+  const analytics = siteData.analytics || {};
+
+  if (analytics.provider === "clarity" && analytics.clarityId) {
+    const script = document.createElement("script");
+
+    script.text = `
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "${analytics.clarityId}");
+    `;
+    document.head.appendChild(script);
+  }
+
+  if (analytics.provider === "umami" && analytics.umamiSrc && analytics.websiteId) {
+    const script = document.createElement("script");
+
+    script.defer = true;
+    script.src = analytics.umamiSrc;
+    script.dataset.websiteId = analytics.websiteId;
+    document.head.appendChild(script);
+  }
+};
+
+loadAnalytics();

@@ -19,3 +19,7 @@ portfolioProjects: [
 ```
 
 如果你要补新的实习、项目、奖项，也直接改 `experience`、`portfolioProjects`、`awards` 这几个数组即可。
+
+访问统计配置在 `data.js` 的 `analytics` 字段中。填入 Microsoft Clarity 的 `clarityId`，或改用 Umami 的 `umamiSrc` 与 `websiteId` 后，页面会自动加载统计脚本。
+
+GitHub Pages 的错误页是 `404.html`，用于处理错误链接或失效路径。
