@@ -12,6 +12,9 @@ const renderButtons = (links, className = "button") =>
 const renderChips = (items) =>
   items.map((item) => `<span class="chip">${item}</span>`).join("");
 
+const renderMeta = (items) =>
+  items.filter(Boolean).map((item) => `<span>${item}</span>`).join("");
+
 app.innerHTML = `
   <section class="hero" id="top">
     <div class="hero-copy">
@@ -20,9 +23,7 @@ app.innerHTML = `
       <p class="hero-role">${siteData.profile.role}</p>
       <p class="hero-intro">${siteData.profile.intro}</p>
       <div class="hero-meta">
-        <span>${siteData.profile.availability}</span>
-        <span>${siteData.profile.phone}</span>
-        <span>${siteData.profile.email}</span>
+        ${renderMeta([siteData.profile.phone, siteData.profile.email])}
       </div>
       <div class="button-row">
         ${renderButtons(siteData.profile.links)}

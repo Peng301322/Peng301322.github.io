@@ -7,7 +7,6 @@ window.siteData = {
   profile: {
     name: "李亚鹏",
     role: "AI产品经理",
-    availability: "可立即到岗 · 可实习 6 个月",
     phone: "13904910370",
     email: "peng301322@163.com",
     photo: {
@@ -302,7 +301,12 @@ window.siteData = {
     "Axure",
     "XMind",
     "Figma",
-    "Tableau"
+    "Tableau",
+    "Codex",
+    "Claude Code",
+    "Coze",
+    "Dify",
+    "Obsidian"
   ],
   principles: [
     "不是把需求收满，而是判断什么最值得做。",
