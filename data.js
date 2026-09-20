@@ -233,10 +233,7 @@ window.siteData = {
           caption: "线上易态 APP、算法能力与个性化智能矫形器的一体化产品方案"
         }
       ],
-      files: [
-        { label: "查看 PDF", href: "./assets/yitai-rehab-system.pdf" },
-        { label: "查看 APK", href: "./assets/yitai-app-demo.apk" }
-      ]
+      preview: { label: "在线查看", href: "./assets/yitai-rehab-system.pdf" }
     },
     {
       title: "云传星控｜智能慧感一站式解决方案",
@@ -264,9 +261,7 @@ window.siteData = {
           caption: "天地一体的自然环境解决方案与落地案例"
         }
       ],
-      files: [
-        { label: "查看方案 PDF", href: "./assets/smart-sensing-solution.pdf" }
-      ]
+      preview: { label: "在线查看", href: "./assets/smart-sensing-solution.pdf" }
     },
     {
       title: "奇精机械业务开拓的三重平衡之路",
@@ -294,9 +289,7 @@ window.siteData = {
           caption: "企业调研实况与案例研究过程页"
         }
       ],
-      files: [
-        { label: "查看案例 PDF", href: "./assets/qijing-case-analysis.pdf" }
-      ]
+      preview: { label: "在线查看", href: "./assets/qijing-case-analysis.pdf" }
     }
   ],
   education: [
