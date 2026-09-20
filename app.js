@@ -9,6 +9,17 @@ const renderButtons = (links, className = "button") =>
     )
     .join("");
 
+const renderPreviewButton = (preview, title) => `
+  <button
+    class="button button-muted"
+    type="button"
+    data-preview-src="${preview.href}"
+    data-preview-title="${title}"
+  >
+    ${preview.label}
+  </button>
+`;
+
 const renderChips = (items) =>
   items.map((item) => `<span class="chip">${item}</span>`).join("");
 
@@ -234,7 +245,7 @@ app.innerHTML = `
                   : ""
               }
               <div class="button-row">
-                ${renderButtons(item.files, "button button-muted")}
+                ${renderPreviewButton(item.preview, item.title)}
               </div>
             </article>
           `
@@ -269,6 +280,39 @@ app.innerHTML = `
       </div>
     </div>
   </section>
+  <div
+    class="document-preview"
+    id="document-preview"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="document-preview-title"
+    hidden
+  >
+    <button
+      class="document-preview__backdrop"
+      type="button"
+      aria-label="关闭在线预览"
+      data-preview-close
+    ></button>
+    <div class="document-preview__panel">
+      <div class="document-preview__header">
+        <div>
+          <span class="card-kicker">ONLINE PREVIEW</span>
+          <h2 id="document-preview-title">在线查看</h2>
+        </div>
+        <button class="document-preview__close" type="button" data-preview-close>
+          关闭
+        </button>
+      </div>
+      <iframe
+        class="document-preview__frame"
+        id="document-preview-frame"
+        src="about:blank"
+        title="作品在线预览"
+      ></iframe>
+    </div>
+  </div>
   <a class="floating-resume" href="./assets/resume-latest.pdf" target="_blank" rel="noreferrer">
     下载简历
   </a>
@@ -278,6 +322,45 @@ const header = document.querySelector(".site-header");
 const navButtons = document.querySelectorAll("[data-target]");
 const sectionIds = ["top", "positioning", "background", "experience", "portfolio", "awards"];
 const navLinks = document.querySelectorAll(".site-nav .nav-link");
+const previewDialog = document.querySelector("#document-preview");
+const previewFrame = document.querySelector("#document-preview-frame");
+const previewTitle = document.querySelector("#document-preview-title");
+const previewButtons = document.querySelectorAll("[data-preview-src]");
+const previewCloseButtons = document.querySelectorAll("[data-preview-close]");
+let previewTrigger = null;
+
+const closeDocumentPreview = () => {
+  if (!previewDialog || previewDialog.hidden) return;
+
+  previewDialog.hidden = true;
+  previewDialog.setAttribute("aria-hidden", "true");
+  previewFrame.setAttribute("src", "about:blank");
+  document.body.classList.remove("preview-open");
+  previewTrigger?.focus();
+  previewTrigger = null;
+};
+
+const openDocumentPreview = (button) => {
+  previewTrigger = button;
+  previewTitle.textContent = button.dataset.previewTitle;
+  previewFrame.setAttribute("src", `${button.dataset.previewSrc}#toolbar=0&navpanes=0&view=FitH`);
+  previewDialog.hidden = false;
+  previewDialog.setAttribute("aria-hidden", "false");
+  document.body.classList.add("preview-open");
+  previewDialog.querySelector(".document-preview__close").focus();
+};
+
+previewButtons.forEach((button) => {
+  button.addEventListener("click", () => openDocumentPreview(button));
+});
+
+previewCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeDocumentPreview);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeDocumentPreview();
+});
 
 const getScrollOffset = () => {
   const headerHeight = header ? header.offsetHeight : 0;
