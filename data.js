@@ -85,6 +85,17 @@ window.siteData = {
       headline:
         "围绕苹果二手采销业务，从 0 到 1 建设覆盖多源报价采集、数据标准化、价格分析与采购决策的 Agent 系统，将分散的非结构化渠道报价沉淀为标准化价格资产，辅助采销人员完成多渠道比价、行情判断及采销决策。",
       tags: ["Agent", "OCR Skill", "SKU 标准化", "数据治理", "价格决策", "AI Coding"],
+      showcase: {
+        label: "果决应用实录",
+        images: [
+          { src: "./assets/jd-guojue-01.png", alt: "果决价格诊断首页" },
+          { src: "./assets/jd-guojue-02.png", alt: "果决 iPhone 行情大盘" },
+          { src: "./assets/jd-guojue-03.png", alt: "果决产品目录" },
+          { src: "./assets/jd-guojue-04.png", alt: "果决价格明细看板" },
+          { src: "./assets/jd-guojue-05.png", alt: "果决 Skill 中心" },
+          { src: "./assets/jd-guojue-06.png", alt: "果决低价雷达" }
+        ]
+      },
       wins: [
         "从 0 到 1 建设“多源报价采集—标准化—价格决策”Agent 系统，统一 15 类渠道价格源与标准 SKU 口径，将分散报价沉淀为可计算、可追溯的价格资产，管理 3.7 万+ 价格记录与 1,800+ 标准 SKU。",
         "主导“采集—OCR—SKU 标准化—质量校验—幂等入库”自动化工作流，完成数据源路由、长图切片、循环 OCR、字段合并与异常拦截；将 5 类报价源处理逻辑封装为可复用 OCR Skill，建设覆盖注册、检索、启停、可信校验与审计的 Skill 管理模块，单日支撑 1,239 条唯一报价标准化。",

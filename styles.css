@@ -695,6 +695,44 @@ body::after {
   font-size: 0.88rem;
 }
 
+.experience-showcase {
+  margin: 0 0 20px;
+}
+
+.experience-showcase__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.experience-showcase__row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.experience-showcase__shot {
+  aspect-ratio: 1.92 / 1;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(30, 68, 105, 0.12);
+  border-radius: 10px;
+  background: rgba(243, 249, 255, 0.8);
+  box-shadow: 0 5px 14px rgba(25, 66, 105, 0.07);
+}
+
+.experience-showcase__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .experience-grid {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -1031,6 +1069,18 @@ body.preview-open {
 }
 
 @media (max-width: 680px) {
+  .experience-showcase__row {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+  }
+
+  .experience-showcase__shot {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+  }
+
   .page-shell {
     width: min(100vw - 20px, 100%);
     padding-top: 10px;

@@ -160,6 +160,28 @@ app.innerHTML = `
               <div class="chip-row">
                 ${renderChips(item.tags)}
               </div>
+              ${
+                item.showcase?.images?.length
+                  ? `
+                    <section class="experience-showcase" aria-label="${item.showcase.label}">
+                      <div class="experience-showcase__head">
+                        <span>${item.showcase.label}</span>
+                      </div>
+                      <div class="experience-showcase__row">
+                        ${item.showcase.images
+                          .map(
+                            (image) => `
+                              <figure class="experience-showcase__shot">
+                                <img src="${image.src}" alt="${image.alt}" loading="lazy" />
+                              </figure>
+                            `
+                          )
+                          .join("")}
+                      </div>
+                    </section>
+                  `
+                  : ""
+              }
               <div class="experience-grid">
                 <div class="experience-column">
                   <h4>关键结果</h4>
