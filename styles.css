@@ -321,9 +321,12 @@ body::after {
   justify-content: center;
   min-height: 48px;
   padding: 0 18px;
+  border: none;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--accent-deep), var(--accent));
   color: #ffffff;
+  cursor: pointer;
+  font: inherit;
   text-decoration: none;
   font-weight: 700;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -871,6 +874,86 @@ body::after {
   transform: translateY(-2px);
 }
 
+body.preview-open {
+  overflow: hidden;
+}
+
+.document-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.document-preview[hidden] {
+  display: none;
+}
+
+.document-preview__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: rgba(6, 22, 38, 0.72);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.document-preview__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(1180px, calc(100vw - 32px));
+  height: min(920px, calc(100dvh - 32px));
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: var(--radius-lg);
+  background: #eef5f9;
+  box-shadow: 0 30px 90px rgba(3, 18, 32, 0.38);
+}
+
+.document-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(30, 68, 105, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.document-preview__header .card-kicker {
+  margin-bottom: 4px;
+}
+
+.document-preview__header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.document-preview__close {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(30, 68, 105, 0.14);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.document-preview__frame {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  border: 0;
+  background: #dfe8ee;
+}
+
 .error-page {
   display: grid;
   place-items: center;
@@ -1001,5 +1084,28 @@ body::after {
     min-height: 44px;
     padding: 0 14px;
     font-size: 0.9rem;
+  }
+
+  .document-preview {
+    padding: 8px;
+  }
+
+  .document-preview__panel {
+    width: calc(100vw - 16px);
+    height: calc(100dvh - 16px);
+    border-radius: 18px;
+  }
+
+  .document-preview__header {
+    padding: 12px;
+  }
+
+  .document-preview__header .card-kicker {
+    display: none;
+  }
+
+  .document-preview__header h2 {
+    max-width: 230px;
+    font-size: 0.98rem;
   }
 }
