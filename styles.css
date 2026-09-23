@@ -150,6 +150,18 @@ body::after {
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.nav-resume {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+:where(button, a, iframe):focus-visible {
+  outline: 3px solid var(--accent-deep);
+  outline-offset: 3px;
+}
+
 .brand,
 .nav-link {
   scroll-margin-top: 110px;
@@ -677,6 +689,17 @@ body::after {
   margin-bottom: 18px;
 }
 
+.portfolio-confidentiality {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(0, 167, 199, 0.07);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -1100,8 +1123,18 @@ body.preview-open {
   .site-nav {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
+  }
+
+  .site-nav .nav-link:nth-child(1),
+  .site-nav .nav-link:nth-child(2),
+  .site-nav .nav-link:nth-child(5) {
+    display: none;
+  }
+
+  .site-nav .nav-resume {
+    display: inline-flex;
   }
 
   .nav-link {

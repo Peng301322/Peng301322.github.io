@@ -23,6 +23,7 @@ window.siteData = {
     links: [
       { label: "联系邮箱", href: "mailto:peng301322@163.com" },
       { label: "电话联系", href: "tel:13904910370" },
+      { label: "GitHub", href: "https://github.com/Peng301322" },
       { label: "查看简历", href: "./assets/resume-latest.pdf" }
     ]
   },
@@ -272,7 +273,9 @@ window.siteData = {
           caption: "天地一体的自然环境解决方案与落地案例"
         }
       ],
-      preview: { label: "在线查看", href: "./assets/smart-sensing-solution.pdf" }
+      previewNote:
+        "仅支持在线查看前三页。",
+      preview: { label: "在线查看", href: "./assets/smart-sensing-solution-preview.pdf" }
     },
     {
       title: "奇精机械业务开拓的三重平衡之路",

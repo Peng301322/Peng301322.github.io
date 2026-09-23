@@ -157,6 +157,11 @@ app.innerHTML = `
                 <span class="timeline-period">${item.period}</span>
               </div>
               <p class="timeline-highlight">${item.headline}</p>
+              ${
+                item.confidentialityNote
+                  ? `<p class="experience-confidentiality">${item.confidentialityNote}</p>`
+                  : ""
+              }
               <div class="chip-row">
                 ${renderChips(item.tags)}
               </div>
@@ -266,6 +271,9 @@ app.innerHTML = `
                   `
                   : ""
               }
+              <p class="portfolio-confidentiality">
+                ${item.previewNote || "部分作品信息已脱敏处理，完整方案与产品细节可在面试中展开演示。"}
+              </p>
               <div class="button-row">
                 ${renderPreviewButton(item.preview, item.title)}
               </div>
@@ -316,6 +324,7 @@ app.innerHTML = `
       type="button"
       aria-label="关闭在线预览"
       data-preview-close
+      tabindex="-1"
     ></button>
     <div class="document-preview__panel">
       <div class="document-preview__header">
@@ -381,7 +390,17 @@ previewCloseButtons.forEach((button) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeDocumentPreview();
+  if (!previewDialog || previewDialog.hidden) return;
+
+  if (event.key === "Escape") {
+    closeDocumentPreview();
+    return;
+  }
+
+  if (event.key === "Tab") {
+    event.preventDefault();
+    previewDialog.querySelector(".document-preview__close").focus();
+  }
 });
 
 const getScrollOffset = () => {
