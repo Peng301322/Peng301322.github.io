@@ -179,7 +179,7 @@ app.innerHTML = `
                         ${item.showcase.images
                           .map(
                             (image) => `
-                              <figure class="experience-showcase__shot">
+                              <figure class="experience-showcase__shot" tabindex="0" role="button" aria-label="放大查看：${image.alt}" title="双击放大查看" data-showcase-src="${image.src}" data-showcase-alt="${image.alt}">
                                 <img src="${image.src}" alt="${image.alt}" loading="lazy" />
                               </figure>
                             `
@@ -404,6 +404,68 @@ document.addEventListener("keydown", (event) => {
     event.preventDefault();
     previewDialog.querySelector(".document-preview__close").focus();
   }
+});
+
+const imageViewer = document.createElement("dialog");
+imageViewer.className = "image-viewer";
+imageViewer.setAttribute("aria-label", "果决应用实录大图预览");
+imageViewer.innerHTML = `
+  <div class="image-viewer__bar">
+    <span id="image-viewer-caption" aria-live="polite"></span>
+    <div class="image-viewer__actions">
+      <button type="button" data-image-prev aria-label="上一张图片">上一张</button>
+      <button type="button" data-image-next aria-label="下一张图片">下一张</button>
+      <button type="button" data-image-close autofocus>关闭</button>
+    </div>
+  </div>
+  <img class="image-viewer__image" alt="">
+`;
+document.body.appendChild(imageViewer);
+const showcaseShots = Array.from(document.querySelectorAll("[data-showcase-src]"));
+let activeShotIndex = 0;
+let imageViewerTrigger = null;
+const updateImageViewer = (index) => {
+  activeShotIndex = (index + showcaseShots.length) % showcaseShots.length;
+  const shot = showcaseShots[activeShotIndex];
+  const img = imageViewer.querySelector("img");
+  img.src = shot.dataset.showcaseSrc;
+  img.alt = shot.dataset.showcaseAlt;
+  imageViewer.querySelector("#image-viewer-caption").textContent = `${activeShotIndex + 1} / ${showcaseShots.length} · ${img.alt}`;
+};
+const openImageViewer = (shot) => {
+  imageViewerTrigger = shot;
+  updateImageViewer(showcaseShots.indexOf(shot));
+  if (!imageViewer.open) imageViewer.showModal();
+  document.body.classList.add("image-viewer-open");
+};
+showcaseShots.forEach((shot) => {
+  shot.addEventListener("dblclick", () => openImageViewer(shot));
+  shot.addEventListener("click", (event) => {
+    if (event.detail === 0 || window.matchMedia("(pointer: coarse)").matches) openImageViewer(shot);
+  });
+  shot.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openImageViewer(shot);
+    }
+  });
+});
+imageViewer.querySelector("[data-image-close]").addEventListener("click", () => imageViewer.close());
+imageViewer.querySelector("[data-image-prev]").addEventListener("click", () => updateImageViewer(activeShotIndex - 1));
+imageViewer.querySelector("[data-image-next]").addEventListener("click", () => updateImageViewer(activeShotIndex + 1));
+imageViewer.addEventListener("click", (event) => {
+  if (event.target === imageViewer) imageViewer.close();
+});
+imageViewer.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    event.preventDefault();
+    updateImageViewer(activeShotIndex + (event.key === "ArrowRight" ? 1 : -1));
+  }
+});
+imageViewer.addEventListener("close", () => {
+  document.body.classList.remove("image-viewer-open");
+  imageViewer.querySelector("img").removeAttribute("src");
+  imageViewerTrigger?.focus({ preventScroll: true });
 });
 
 const getScrollOffset = () => {
