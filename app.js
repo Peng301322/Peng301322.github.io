@@ -150,9 +150,12 @@ app.innerHTML = `
           (item) => `
             <article class="experience-card">
               <div class="timeline-top">
-                <div>
+                <div class="timeline-identity">
+                  ${item.logo ? `<img class="company-logo" src="${item.logo.src}" alt="${item.logo.alt}" width="88" height="64">` : ""}
+                  <div>
                   <p class="timeline-company">${item.company}</p>
                   <h3>${item.title}</h3>
+                  </div>
                 </div>
                 <span class="timeline-period">${item.period}</span>
               </div>

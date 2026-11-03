@@ -660,6 +660,7 @@ body::after {
 }
 
 .experience-card {
+  min-width: 0;
   padding: 24px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(242, 250, 255, 0.82)),
@@ -683,6 +684,13 @@ body::after {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.timeline-identity { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.company-logo { width: 88px; height: 64px; flex: 0 0 88px; object-fit: contain; padding: 10px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+@media (max-width: 680px) {
+  .timeline-identity { gap: 12px; }
+  .company-logo { width: 64px; height: 52px; flex-basis: 64px; padding: 7px; }
 }
 
 .timeline-highlight {
@@ -761,6 +769,8 @@ body::after {
   grid-template-columns: 0.92fr 1.08fr;
   gap: 18px;
 }
+
+.experience-column { min-width: 0; overflow-wrap: anywhere; }
 
 .experience-column h4,
 .portfolio-block h4 {
