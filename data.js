@@ -89,13 +89,16 @@ window.siteData = {
       tags: ["Agent", "OCR Skill", "SKU 标准化", "数据治理", "价格决策", "AI Coding"],
       showcase: {
         label: "果决应用实录",
+        video: {
+          src: "./assets/jd-guojue-demo-60s.mp4",
+          poster: "./assets/jd-guojue-04.png",
+          title: "果决操作演示 · 60 秒"
+        },
         images: [
-          { src: "./assets/jd-guojue-01.png", alt: "果决价格诊断首页" },
           { src: "./assets/jd-guojue-02.png", alt: "果决 iPhone 行情大盘" },
           { src: "./assets/jd-guojue-03.png", alt: "果决产品目录" },
           { src: "./assets/jd-guojue-04.png", alt: "果决价格明细看板" },
-          { src: "./assets/jd-guojue-05.png", alt: "果决 Skill 中心" },
-          { src: "./assets/jd-guojue-06.png", alt: "果决低价雷达" }
+          { src: "./assets/jd-guojue-05.png", alt: "果决 Skill 中心" }
         ]
       },
       wins: [

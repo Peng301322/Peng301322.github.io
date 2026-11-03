@@ -120,7 +120,7 @@ test("portfolio preview fills the viewport and locks background scrolling", asyn
   }
 });
 
-test("JD experience presents six compact product screenshots before results", async () => {
+test("JD experience presents a video and four compact screenshots before results", async () => {
   const browser = await chromium.launch({
     headless: true,
     executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -134,7 +134,8 @@ test("JD experience presents six compact product screenshots before results", as
     const showcase = jingdongCard.locator(".experience-showcase");
     const screenshots = showcase.locator("img");
 
-    assert.equal(await screenshots.count(), 6);
+    assert.equal(await screenshots.count(), 4);
+    assert.equal(await showcase.locator('video[controls]').count(), 1);
     assert.match(await showcase.textContent(), /果决应用实录/);
     assert.doesNotMatch(await showcase.textContent(), /产品界面/);
 
@@ -155,8 +156,8 @@ test("JD experience presents six compact product screenshots before results", as
     assert.ok(layout.widths.every((width) => width >= 150), `expected readable thumbnails, got ${layout.widths.join(", ")}`);
     assert.ok(layout.heights.every((height) => height >= 80), `expected visible thumbnails, got ${layout.heights.join(", ")}`);
     assert.ok(
-      layout.topOffsets.every((top) => Math.abs(top - layout.topOffsets[0]) < 2),
-      `expected one horizontal row, got vertical offsets ${layout.topOffsets.join(", ")}`
+      Math.abs(layout.topOffsets[0] - layout.topOffsets[1]) < 2 && layout.topOffsets[2] > layout.topOffsets[0],
+      `expected two rows beside the video, got vertical offsets ${layout.topOffsets.join(", ")}`
     );
   } finally {
     await browser.close();

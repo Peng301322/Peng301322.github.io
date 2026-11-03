@@ -171,10 +171,20 @@ app.innerHTML = `
               ${
                 item.showcase?.images?.length
                   ? `
-                    <section class="experience-showcase" aria-label="${item.showcase.label}">
+                    <section class="experience-showcase ${item.showcase.video ? "experience-showcase--video" : ""}" aria-label="${item.showcase.label}">
                       <div class="experience-showcase__head">
                         <span>${item.showcase.label}</span>
                       </div>
+                      <div class="experience-showcase__media">
+                      ${item.showcase.video ? `
+                        <figure class="experience-showcase__video">
+                          <video controls playsinline preload="metadata" controlslist="nodownload" poster="${item.showcase.video.poster}" aria-label="${item.showcase.video.title}">
+                            <source src="${item.showcase.video.src}" type="video/mp4">
+                            你的浏览器暂不支持视频播放，请使用新版浏览器查看。
+                          </video>
+                          <figcaption>${item.showcase.video.title}</figcaption>
+                        </figure>
+                      ` : ""}
                       <div class="experience-showcase__row">
                         ${item.showcase.images
                           .map(
@@ -185,6 +195,7 @@ app.innerHTML = `
                             `
                           )
                           .join("")}
+                      </div>
                       </div>
                     </section>
                   `

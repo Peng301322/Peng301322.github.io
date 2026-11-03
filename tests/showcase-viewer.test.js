@@ -12,9 +12,9 @@ test('showcase opens by double click, switches images, closes with Escape and re
     const shot = page.locator('[data-showcase-src]').first();
     await shot.dblclick();
     assert.equal(await page.locator('.image-viewer').evaluate(e => e.open), true);
-    assert.match(await page.locator('.image-viewer__image').getAttribute('src'), /jd-guojue-01/);
-    await page.keyboard.press('ArrowRight');
     assert.match(await page.locator('.image-viewer__image').getAttribute('src'), /jd-guojue-02/);
+    await page.keyboard.press('ArrowRight');
+    assert.match(await page.locator('.image-viewer__image').getAttribute('src'), /jd-guojue-03/);
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('.image-viewer').evaluate(e => e.open), false);
     assert.equal(await shot.evaluate(e => e === document.activeElement), true);
